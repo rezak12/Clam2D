@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _xJumpForce = 0.1f;
     [SerializeField] private float _yJumpForce = 0.1f;
-    [SerializeField] private float _increaceForceSpeed = 0.04f;
+    [SerializeField] private float _increaseForceValue = 0.0002f;
 
     [SerializeField] private Camera _camera;
 
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        _xJumpForce += _increaceForceSpeed * Time.fixedDeltaTime;
+        _xJumpForce += _increaseForceValue;
     }
 
     public void Jump()

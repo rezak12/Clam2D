@@ -6,8 +6,9 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private float _timeInSeconds;
-
-    public event Action OnTimerOff;
+    
+    public event Action TimerOn;
+    public event Action TimerOff;
 
     private float _timeLeft;
 
@@ -16,6 +17,7 @@ public class Timer : MonoBehaviour
         _slider = GetComponent<Slider>();
         _timeLeft = Time.time + _timeInSeconds;
         _slider.maxValue = _timeInSeconds;
+        TimerOn?.Invoke();
     }
 
     private void Update()
@@ -26,7 +28,7 @@ public class Timer : MonoBehaviour
         }
         if(_timeLeft <= Time.time)
         {
-            OnTimerOff?.Invoke();
+            TimerOff?.Invoke();
         }
     }
 }

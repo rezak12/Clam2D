@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [SerializeField] private string MainMenuSceneName = "Main Menu";
+    [SerializeField] private string MainMenuSceneName = "MainMenu";
 
     public void ToMainMenu()
     {

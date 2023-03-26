@@ -1,15 +1,12 @@
 public class ShieldTimeLeftCounter : PlayerStatCounterUI
 {
-    private void Start()
-    {
-        _bar.SetValue(_stats.TimeLeftForShield);
-    }
     private void OnEnable()
     {
-        _stats.ShieldTimeChanged += (_bar.SetValue);
+        _stats.ShieldTimeChanged += _bar.SetValue;
+        _bar.SetValue(_stats.TimeLeftForShield);
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
-        _stats.ShieldTimeChanged -= (_bar.SetValue);
+        _stats.ShieldTimeChanged -= _bar.SetValue;
     }
 }

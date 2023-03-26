@@ -9,6 +9,7 @@ public class WalletUI : MonoBehaviour
     private void OnEnable()
     {
         _playerWallet.CoinAdded += SetValue;
+        SetValue(_playerWallet.Coins);
     }
     private void OnDisable()
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour
 {
-    private int _coins;
+    public int Coins { get; private set; }
     public event Action<int> CoinAdded;
 
     private void Awake()
@@ -23,24 +23,24 @@ public class PlayerWallet : MonoBehaviour
 
     public void AddCoin()
     {
-        _coins++;
-        CoinAdded?.Invoke(_coins);
+        Coins++;
+        CoinAdded?.Invoke(Coins);
     }
     private void WalletInitialize()
     {
         if (PlayerPrefs.HasKey("Coins"))
         {
-            _coins = PlayerPrefs.GetInt("Coins");
+            Coins = PlayerPrefs.GetInt("Coins");
         }
         else
         {
-            _coins = 0;
+            Coins = 0;
         }
-        CoinAdded?.Invoke(_coins);
+        CoinAdded?.Invoke(Coins);
     }
     private void SaveCoins()
     {
-        PlayerPrefs.SetInt("Coins", _coins);
+        PlayerPrefs.SetInt("Coins", Coins);
         PlayerPrefs.Save();
     }
 }

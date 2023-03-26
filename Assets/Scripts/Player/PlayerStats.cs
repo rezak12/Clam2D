@@ -46,6 +46,14 @@ public class PlayerStats : MonoBehaviour
         CurrentTimeLeftInSeconds += timeInSeconds;
     }
 
+    /// <summary>
+    /// Add 1/2 of max time to live current time left
+    /// </summary>
+    public void ChangeStartTimeToLive()
+    {
+        CurrentTimeLeftInSeconds += _maxTimeLeftInSeconds / 2;
+    }
+
     public void AddLife()
     {
         if (Health + 1 > _maxHealth)
@@ -59,6 +67,8 @@ public class PlayerStats : MonoBehaviour
     public void ChangeStartMaxHealth()
     {
         _maxHealth = 4;
+        Health = _maxHealth;
+        HealthChanged?.Invoke(Health);
     }
 
     public void EquipShield(float timeForShieldInSeconds)
@@ -70,6 +80,7 @@ public class PlayerStats : MonoBehaviour
         }
         _shieldObject.gameObject.SetActive(true);
         TimeLeftForShield += timeForShieldInSeconds;
+        ShieldTimeChanged?.Invoke(TimeLeftForShield);
     }
 
     public void TakeDamage()
@@ -92,10 +103,28 @@ public class PlayerStats : MonoBehaviour
         HealthChanged?.Invoke(Health);
     }
 
+    public void Respawn()
+    {
+        gameObject.SetActive(true);
+        if(CurrentTimeLeftInSeconds < 10)
+        {
+            AddTimeToLive(30);
+        }
+        if(Health < 1)
+        {
+            AddLife();
+        }
+        if(TimeLeftForShield < 5)
+        {
+            EquipShield(5);
+        }
+    }
+
     private void UnequipShield()
     {
         TimeLeftForShield = 0;
         _shieldObject.gameObject.SetActive(false);
+        ShieldTimeChanged?.Invoke(TimeLeftForShield);
     }
 
     private void GameOver()
@@ -114,8 +143,8 @@ public class PlayerStats : MonoBehaviour
             {
                 UnequipShield();
             }
+            ShieldTimeChanged?.Invoke(TimeLeftForShield);
         }
-        ShieldTimeChanged?.Invoke(TimeLeftForShield);
     }
 
     private void CheckTimeForLiving()

@@ -1,13 +1,10 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 public class FloatBar : Bar
 {
-    private Slider barSlider;
+    [SerializeField] private Slider barSlider;
 
-    private void Start()
-    {
-        barSlider = GetComponent<Slider>();
-    }
     public override void SetValue(float value)
     {
         if (value > barSlider.maxValue)
@@ -16,11 +13,11 @@ public class FloatBar : Bar
         }
         barSlider.value = value;
 
-        if(barSlider.value <= 0)
+        if (barSlider.value <= 0)
         {
             gameObject.SetActive(false);
         }
-        else if(!barSlider.IsActive() && barSlider.value > 0)
+        else if (!gameObject.activeSelf && barSlider.value > 0)
         {
             gameObject.SetActive(true);
         }

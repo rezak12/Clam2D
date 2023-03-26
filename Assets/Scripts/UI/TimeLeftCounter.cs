@@ -8,7 +8,7 @@ public class TimeLeftCounter : PlayerStatCounterUI
     {
         _stats.LiveTimeChanged += _bar.SetValue;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         _stats.LiveTimeChanged -= _bar.SetValue;
     }
